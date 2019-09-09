@@ -59,7 +59,8 @@ public class Data {
     private String oid;
     @Column(name = "plaka")
     private String plaka;
-
+    @Column(name = "lastupdated")
+    private Date lastupdated;
     @Transient
     private String durum;
     @Transient
@@ -105,12 +106,12 @@ public class Data {
         this.point_status_name = point_status_name;
     }
 
-    public Date getTarih() {
-        return tarih;
+    public Date getLastupdated() {
+        return lastupdated;
     }
 
-    public void setTarih(Date tarih) {
-        this.tarih = tarih;
+    public void setLastupdated(Date tarih) {
+        this.lastupdated = lastupdated;
     }
 
     public String getVd_vkn() {
@@ -225,7 +226,7 @@ public class Data {
         this.vkn = vkn;
         this.durum_text = durum_text;
         this.point_status_name = point_status_name;
-        this.tarih = tarih;
+        this.lastupdated = lastupdated;
         this.oid = oid;
         this.plaka = plaka;
         this.durum = durum;
