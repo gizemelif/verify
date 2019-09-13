@@ -17,7 +17,10 @@ public interface QueueRepo extends JpaRepository< Queue, String > {
     Queue findByState();
 
     @Modifying(flushAutomatically = true)
-    @Query("UPDATE Queue q SET q.state =:state, q.end_date =:end_date,q.start_date = current_timestamp where q.job_oid =:job_oid")
-    void updateState(@Param("state")Queue.QueueState state, @Param("job_oid") String job_oid, @Param("end_date") Date end_date);
+    @Query("UPDATE Queue q SET q.state =:state, q.notification_mail =:notification_mail, q.start_date = current_timestamp where q.job_oid =:job_oid")
+    void updateState(@Param("state")Queue.QueueState state, @Param("notification_mail") String notification_mail, @Param("job_oid") String job_oid);
 
+    @Modifying(flushAutomatically = true)
+    @Query("UPDATE Queue q SET q.state =:state, q.notification_mail =:notification_mail, q.end_date =:end_date where q.job_oid =:job_oid")
+    void updateStateProcessed(@Param("state")Queue.QueueState state, @Param("notification_mail") String notification_mail,@Param("end_date") Date end_date,@Param("job_oid") String job_oid);
 }

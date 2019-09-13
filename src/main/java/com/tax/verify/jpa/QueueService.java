@@ -2,7 +2,6 @@ package com.tax.verify.jpa;
 
 import com.tax.verify.jpa.pojo.Queue;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -26,11 +25,10 @@ public class QueueService {
         Queue queue = new Queue();
 
         queue.setSql_string(sql);
-        queue.setNotification_mail("Process is waiting");
+        queue.setNotification_mail("Queued");
         queue.setState(WAITING);
         queue.setCreated_at( new Date());
         queue.setQueryType(queryType);
         queueRepo.save(queue);
-        //dataRepositoryImp.insertQueueTable(queue);
     }
 }

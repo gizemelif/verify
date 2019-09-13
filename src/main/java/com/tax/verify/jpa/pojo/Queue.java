@@ -64,6 +64,8 @@ public class Queue {
     }
 
     public Date getEnd_date() {
+        this.end_date = new Date();
+
         return this.end_date;
     }
 

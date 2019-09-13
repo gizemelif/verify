@@ -39,25 +39,8 @@ public class DataController {
     @GetMapping("/datas")
     @ResponseBody
     public void all(@RequestParam String sql, @RequestParam String queryType) {
-       // String sql = "select * from vd_tc_index where tc_sorulan = '42923007322' and point_status_name = 'ACIK' and il_sorulan = 'Tekirdağ'";
         service.setQueueRepo(sql, queryType);
 
-
     }
-
-
-/*
-
-    public void setQueueRepo(String sql){
-
-        queue.setSql_string(sql);
-        queue.setNotification_mail("Process is waiting");
-        queue.setState(WAITING);
-        queue.setEnd_date(new Date());
-        queue.setCreated_at( new Date());
-        queue.setStarted_date(new Date());
-        queueRepo.save(queue);
-    }
-*/
 
 }
