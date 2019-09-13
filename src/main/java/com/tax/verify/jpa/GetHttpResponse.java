@@ -38,7 +38,7 @@ public class GetHttpResponse {
             try {
 
                 String taxNumber = newList.get(i).getVd_vkn();
-                //taxNumber = taxNumber.replace(" ","");
+                taxNumber = taxNumber.replace(" ","");
 
                 AtomicReference<Boolean> isFound = new AtomicReference<>(false);
 
@@ -84,6 +84,7 @@ public class GetHttpResponse {
                 vd.getData().setVd_vdkodu(vd.getData().getVdkodu());
 
                 myData = vd.getData();
+                //System.out.println(responseString);
 
             } catch (Exception e) {
                 mailer.sendEmail("gizemelif.atalay@gvg.com.tr", "HTTP Response hatası", "Uzun süre yanıt alınamadı.");

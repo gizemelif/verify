@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.*;
-
-import static com.tax.verify.jpa.pojo.Queue.QueueState.PROCESSED;
 
 @Transactional
 @Service
@@ -51,49 +51,105 @@ public class DataRepositoryImp {
 
     public void updateVknTable(String sql) {
         try{
-            //System.out.println("(VKN)İşleme alınan sql=> "+ sql);
 
             List<Data> newList = getSqlQuery(sql);
             GetHttpResponse getHttpResponse = new GetHttpResponse();
 
-            List<Data> myDatas = getHttpResponse.getResponseVkn(newList);
+            newList.parallelStream().forEach( d ->{
+                try {
+                    ArrayList<Data> list_for_parallel = new ArrayList<>();
+                    if( d.getVd_vkn() != null){
+                        list_for_parallel.add(d);
+                    }
+                    //List<Data> myDatas = getHttpResponse.getResponseVkn(list_for_parallel);
+                    try{
+                        //myResultList.addAll(getHttpResponse.getResponseVkn(list_for_parallel));
+                        Data respData = new Data();
+                        for(int i=0; i < list_for_parallel.size(); i++){
+                            respData = getHttpResponse.getResponseVkn(list_for_parallel).get(i);
+                        }
 
-            for(int i=0; i < myDatas.size(); i++){
+                        ındexRepository.updateVkn(respData.getVd_vkn(),respData.getVd_unvan_donen(),
+                                respData.getVd_vdkodu(), respData.getVd_tc_donen(),
+                                respData.getVd_fiili_durum_donen(),respData.getOid());
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
 
-                System.out.println("************");
-                ındexRepository.updateVkn(myDatas.get(i).getVd_vkn(),myDatas.get(i).getVd_unvan_donen(),myDatas.get(i).getVd_vdkodu(),myDatas.get(i).getVd_tc_donen(),myDatas.get(i).getVd_fiili_durum_donen(),myDatas.get(i).getOid());
-            }
+                    /*for(int i=0; i < myDatas.size(); i++){
 
+                        ındexRepository.updateVkn(myDatas.get(i).getVd_vkn(),myDatas.get(i).getVd_unvan_donen(),myDatas.get(i).getVd_vdkodu(),myDatas.get(i).getVd_tc_donen(),myDatas.get(i).getVd_fiili_durum_donen(),myDatas.get(i).getOid());
+                     }*/
+                } catch (Exception e) {
+                e.printStackTrace();
+                }
+            });
+            /*for(int i=0; i < myResultList.size(); i++){
+
+                ındexRepository.updateVkn(myResultList.get(i).getVd_vkn(),myResultList.get(i).getVd_unvan_donen(),
+                        myResultList.get(i).getVd_vdkodu(), myResultList.get(i).getVd_tc_donen(),
+                        myResultList.get(i).getVd_fiili_durum_donen(),myResultList.get(i).getOid());
+            }*/
         }
         catch (Exception e){
-            System.out.println("Catched exception on data repo implementer");
             e.printStackTrace();
         }
     }
 
     public void updateTable(String sql) {
         try{
-            List<Data> newList = getSqlQuery(sql);
 
+            List<Data> newList = getSqlQuery(sql);
             GetHttpResponse getHttpResponse = new GetHttpResponse();
 
-            List<Data> myDatas = getHttpResponse.getResponse(newList);
+            newList.parallelStream().forEach( d ->{
+                try {
+                    ArrayList<Data> list_for_parallel = new ArrayList<>();
+                    if(d.getTckn() != null){
+                        list_for_parallel.add(d);
+                    }
+                    //List<Data> myDatas = getHttpResponse.getResponseVkn(list_for_parallel);
+                    try{
+                        //myResultList.addAll(getHttpResponse.getResponse(list_for_parallel));
+                        Data respData = new Data();
+                        for(int i=0; i < list_for_parallel.size(); i++){
+                            respData = getHttpResponse.getResponse(list_for_parallel).get(i);
+                        }
+                        ındexRepository.update(respData.getTckn(),respData.getUnvan(),respData.getVdkodu(),
+                                respData.getVkn(),respData.getDurum_text(),respData.getOid());
 
-            for(int i=0; i < myDatas.size(); i++){
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
 
-                ındexRepository.update(myDatas.get(i).getTckn(),myDatas.get(i).getUnvan(),myDatas.get(i).getVdkodu(),myDatas.get(i).getVkn(),myDatas.get(i).getDurum_text(),myDatas.get(i).getOid());
+                    /*for(int i=0; i < myDatas.size(); i++){
 
-            }
+                        ındexRepository.updateVkn(myDatas.get(i).getVd_vkn(),myDatas.get(i).getVd_unvan_donen(),myDatas.get(i).getVd_vdkodu(),myDatas.get(i).getVd_tc_donen(),myDatas.get(i).getVd_fiili_durum_donen(),myDatas.get(i).getOid());
+                     }*/
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            /*for(int i=0; i < myResultList.size(); i++){
 
+                ındexRepository.update(myResultList.get(i).getTckn(),myResultList.get(i).getUnvan(),myResultList.get(i).getVdkodu(),myResultList.get(i).getVkn(),myResultList.get(i).getDurum_text(),myResultList.get(i).getOid());
+
+            }*/
         }
         catch (Exception e){
             e.printStackTrace();
         }
+
     }
 
     public void printQueues(){
         List<Queue> queues = em.createQuery("SELECT q FROM Queue q").getResultList();
         queues.stream().forEach(q -> System.out.println(q.getSql_string()));
     }
+
 
 }
