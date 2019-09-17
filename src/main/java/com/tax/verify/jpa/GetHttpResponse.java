@@ -35,6 +35,7 @@ public class GetHttpResponse {
         List<Data> myDatas = new ArrayList<>();
         for (int i = 0; i < newList.size(); i++) {
             Data myData = new Data();
+
             try {
 
                 String taxNumber = newList.get(i).getVd_vkn();
@@ -57,19 +58,22 @@ public class GetHttpResponse {
                 VD vd = mapper.readValue(responseString, new TypeReference<VD>() {
                 });
 
-                if( vd == null || vd.getData().getVdkodu() == null || vd.getData().getVdkodu().length() == 0){
+                if( vd == null || vd.getData().getVkn() == null || vd.getData().getVdkodu() == null || vd.getData().getVdkodu().length() == 0 || vd.getData().getDurum_text() == null || vd.getData().getDurum_text().length() == 0 ){
 
                     if(!isFound.get()){
                         vd = new VD();
-                        myData.setVd_fiili_durum_donen("N/A");
-                        myData.setVd_tc_donen("N/A");
-                        myData.setVd_unvan_donen("N/A");
-                        myData.setVd_vdkodu("N/A");
                         myData.setVd_vkn(taxNumber);
+                        myData.setVd_unvan_donen("N/A");
+                        myData.setVd_tc_donen("N/A");
+                        myData.setVd_fiili_durum_donen("N/A");
+                        myData.setVd_vdkodu("N/A");
                         myData.setOid(newList.get(i).getOid());
                         myData.setPlaka(newList.get(i).getPlaka());
 
                         vd.setData(myData);
+
+                        myDatas.add(myData);
+                        continue;
                     }
                 }
                 isFound.set(true);
@@ -78,7 +82,7 @@ public class GetHttpResponse {
                 vd.getData().setPlaka(newList.get(i).getPlaka());
                 //myData.setTckn(newList.get(i).getTckn());
                 vd.getData().setVd_tc_donen(vd.getData().getTckn());
-                vd.getData().setVd_vkn(taxNumber);
+                vd.getData().setVd_vkn(newList.get(i).getVd_vkn());
                 vd.getData().setVd_fiili_durum_donen(vd.getData().getDurum_text());
                 vd.getData().setVd_unvan_donen(vd.getData().getUnvan());
                 vd.getData().setVd_vdkodu(vd.getData().getVdkodu());
@@ -87,8 +91,13 @@ public class GetHttpResponse {
                 //System.out.println(responseString);
 
             } catch (Exception e) {
-                mailer.sendEmail("gizemelif.atalay@gvg.com.tr", "HTTP Response hatası", "Uzun süre yanıt alınamadı.");
-                e.printStackTrace();
+
+                if( myData.getVd_vkn().length() == 0 )
+                    continue;
+                else
+                    mailer.sendEmail("gizemelif.atalay@gvg.com.tr", "HTTP Response hatası", e.toString());
+
+                continue;
             }
             myDatas.add(myData);
         }
@@ -119,7 +128,7 @@ public class GetHttpResponse {
                 VD vd = mapper.readValue(responseString, new TypeReference<VD>() {
                 });
 
-                if( vd == null || vd.getData().getVdkodu() == null || vd.getData().getVdkodu().length() == 0){
+                if( vd == null || vd.getData().getTckn() == null || vd.getData().getTckn().length() == 0 || vd.getData().getVdkodu() == null || vd.getData().getVdkodu().length() == 0){
 
                     if(!isFound.get()){
                         vd = new VD();
@@ -132,6 +141,9 @@ public class GetHttpResponse {
                         myData.setPlaka(newList.get(i).getPlaka());
 
                         vd.setData(myData);
+
+                        myDatas.add(myData);
+                        continue;
                     }
                 }
                 isFound.set(true);
@@ -142,9 +154,16 @@ public class GetHttpResponse {
 
             } catch (Exception e) {
 
-                mailer.sendEmail("gizemelif.atalay@gvg.com.tr", "HTTP Response hatası", "Uzun süre yanıt alınamadı.");
                 e.printStackTrace();
+
+                if( myData.getTckn().length() == 0 )
+                    continue;
+                else
+                    mailer.sendEmail("gizemelif.atalay@gvg.com.tr", "HTTP Response hatası", e.toString());
+
+                continue;
             }
+
             myDatas.add(myData);
         }
         return myDatas;

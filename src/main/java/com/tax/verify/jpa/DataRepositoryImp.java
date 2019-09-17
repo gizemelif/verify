@@ -57,10 +57,11 @@ public class DataRepositoryImp {
 
             newList.parallelStream().forEach( d ->{
                 try {
-                    ArrayList<Data> list_for_parallel = new ArrayList<>();
-                    if( d.getVd_vkn() != null){
+                    List<Data> list_for_parallel = new ArrayList<>();
+                    list_for_parallel.add(d);
+                    /*if( d.getVd_vkn() != null){
                         list_for_parallel.add(d);
-                    }
+                    }*/
                     //List<Data> myDatas = getHttpResponse.getResponseVkn(list_for_parallel);
                     try{
                         //myResultList.addAll(getHttpResponse.getResponseVkn(list_for_parallel));
@@ -106,10 +107,11 @@ public class DataRepositoryImp {
 
             newList.parallelStream().forEach( d ->{
                 try {
-                    ArrayList<Data> list_for_parallel = new ArrayList<>();
-                    if(d.getTckn() != null){
+                    List<Data> list_for_parallel = new ArrayList<>();
+                    list_for_parallel.add(d);
+                    /*if(d.getTckn() != null){
                         list_for_parallel.add(d);
-                    }
+                    }*/
                     //List<Data> myDatas = getHttpResponse.getResponseVkn(list_for_parallel);
                     try{
                         //myResultList.addAll(getHttpResponse.getResponse(list_for_parallel));
