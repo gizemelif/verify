@@ -59,12 +59,7 @@ public class DataRepositoryImp {
                 try {
                     List<Data> list_for_parallel = new ArrayList<>();
                     list_for_parallel.add(d);
-                    /*if( d.getVd_vkn() != null){
-                        list_for_parallel.add(d);
-                    }*/
-                    //List<Data> myDatas = getHttpResponse.getResponseVkn(list_for_parallel);
                     try{
-                        //myResultList.addAll(getHttpResponse.getResponseVkn(list_for_parallel));
                         Data respData = new Data();
                         for(int i=0; i < list_for_parallel.size(); i++){
                             respData = getHttpResponse.getResponseVkn(list_for_parallel).get(i);
@@ -79,20 +74,11 @@ public class DataRepositoryImp {
                         e.printStackTrace();
                     }
 
-                    /*for(int i=0; i < myDatas.size(); i++){
-
-                        ındexRepository.updateVkn(myDatas.get(i).getVd_vkn(),myDatas.get(i).getVd_unvan_donen(),myDatas.get(i).getVd_vdkodu(),myDatas.get(i).getVd_tc_donen(),myDatas.get(i).getVd_fiili_durum_donen(),myDatas.get(i).getOid());
-                     }*/
                 } catch (Exception e) {
                 e.printStackTrace();
                 }
             });
-            /*for(int i=0; i < myResultList.size(); i++){
 
-                ındexRepository.updateVkn(myResultList.get(i).getVd_vkn(),myResultList.get(i).getVd_unvan_donen(),
-                        myResultList.get(i).getVd_vdkodu(), myResultList.get(i).getVd_tc_donen(),
-                        myResultList.get(i).getVd_fiili_durum_donen(),myResultList.get(i).getOid());
-            }*/
         }
         catch (Exception e){
             e.printStackTrace();
@@ -128,19 +114,10 @@ public class DataRepositoryImp {
                         e.printStackTrace();
                     }
 
-                    /*for(int i=0; i < myDatas.size(); i++){
-
-                        ındexRepository.updateVkn(myDatas.get(i).getVd_vkn(),myDatas.get(i).getVd_unvan_donen(),myDatas.get(i).getVd_vdkodu(),myDatas.get(i).getVd_tc_donen(),myDatas.get(i).getVd_fiili_durum_donen(),myDatas.get(i).getOid());
-                     }*/
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
-            /*for(int i=0; i < myResultList.size(); i++){
-
-                ındexRepository.update(myResultList.get(i).getTckn(),myResultList.get(i).getUnvan(),myResultList.get(i).getVdkodu(),myResultList.get(i).getVkn(),myResultList.get(i).getDurum_text(),myResultList.get(i).getOid());
-
-            }*/
         }
         catch (Exception e){
             e.printStackTrace();

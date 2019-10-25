@@ -31,4 +31,8 @@ public class QueueService {
         queue.setQueryType(queryType);
         queueRepo.save(queue);
     }
+    public void setQueue(String data){
+        Queue queue = new Queue();
+        queue.setSql_string(data);
+    }
 }

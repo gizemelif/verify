@@ -1,12 +1,17 @@
 package com.tax.verify.job;
 
+import com.tax.verify.api.DataController;
 import com.tax.verify.jpa.DataRepositoryImp;
 import com.tax.verify.jpa.QueueRepo;
 import com.tax.verify.jpa.pojo.Queue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+
 import static com.tax.verify.jpa.pojo.Queue.QueueState.PROCESSED;
+import static com.tax.verify.jpa.pojo.Queue.QueueState.PROCESSING;
 
 @Component
 public class Scheduler {
@@ -25,8 +30,9 @@ public class Scheduler {
 
     @Scheduled(fixedDelay = 20000)
     public void checkTheSchedule() {
+
         queue = findByState();
-        if(queue == null) return;
+        if(queue == null){return;}
         try{
             if (queue != null && queue.getQueryType().equals("tc") || queue.getQueryType().equals("TC")) {
                 queueRepo.updateState(Queue.QueueState.PROCESSING,"Process is starting...", queue.getJob_oid());
@@ -45,6 +51,7 @@ public class Scheduler {
         }catch(Exception e){
             e.printStackTrace();
             System.out.println("Queue is null");
+
         }
 
     }
