@@ -4,7 +4,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,7 +12,6 @@ import java.util.Date;
 @Table(name = "SCHEDULED_VD_TC_INDEX")
 @EntityListeners(AuditingEntityListener.class)
 public class Queue {
-
 
     public Queue(){}
     public Queue(String notificationMail, String sqlString) {
@@ -31,19 +29,13 @@ public class Queue {
     @Column(name = "QUERY_TYPE")
     private String queryType;
 
-    public String getQueryType() {
-        return queryType;
-    }
-
-    public void setQueryType(String queryType) {
-        this.queryType = queryType;
-    }
+    @Column( name = "is_plate")
+    private String isPlate;
 
     @Id @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name = "JOB_OID")
     private String job_oid;
-
 
     @Column(name = "CREATED_AT")
     @CreatedDate
@@ -54,24 +46,6 @@ public class Queue {
 
     @Column(name = "END_DATE")
     private Date end_date;
-
-    public Date getStart_date() {
-        return this.start_date;
-    }
-
-    public void setStart_date(Date start_date) {
-        this.start_date = start_date;
-    }
-
-    public Date getEnd_date() {
-        this.end_date = new Date();
-
-        return this.end_date;
-    }
-
-    public void setEnd_date(Date end_date) {
-        this.end_date = end_date;
-    }
 
     @Column(name = "NOTIFICATION_MAIL")
 
@@ -123,4 +97,38 @@ public class Queue {
     public void setJob_oid(String job_oid) {
         this.job_oid = job_oid;
     }
+
+    public String getIsPlate() {
+        return isPlate;
+    }
+
+    public void setIsPlate(String isPlate) {
+        this.isPlate = isPlate;
+    }
+    public String getQueryType() {
+        return queryType;
+    }
+    public void setQueryType(String queryType) {
+        this.queryType = queryType;
+    }
+
+    public Date getStart_date() {
+        return this.start_date;
+    }
+
+    public void setStart_date(Date start_date) {
+        this.start_date = start_date;
+    }
+
+    public Date getEnd_date() {
+        this.end_date = new Date();
+
+        return this.end_date;
+    }
+
+    public void setEnd_date(Date end_date) {
+        this.end_date = end_date;
+    }
+
+
 }

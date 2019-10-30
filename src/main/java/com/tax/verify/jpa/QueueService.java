@@ -21,7 +21,7 @@ public class QueueService {
     @Autowired
     private QueueRepo queueRepo;
 
-    public void setQueueRepo(String sql, String queryType){
+    public void setQueueRepo(String sql, String queryType, String isPlate){
         Queue queue = new Queue();
 
         queue.setSql_string(sql);
@@ -29,6 +29,7 @@ public class QueueService {
         queue.setState(WAITING);
         queue.setCreated_at( new Date());
         queue.setQueryType(queryType);
+        queue.setIsPlate(isPlate);
         queueRepo.save(queue);
     }
     public void setQueue(String data){

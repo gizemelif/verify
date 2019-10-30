@@ -49,6 +49,76 @@ public class DataRepositoryImp {
         return s.list();
     }
 
+    public void updateTCNullPlate(String sql) {
+        try{
+
+            List<Data> newList = getSqlQuery(sql);
+            GetHttpResponse getHttpResponse = new GetHttpResponse();
+
+            newList.parallelStream().forEach( d ->{
+                try {
+                    List<Data> list_for_parallel = new ArrayList<>();
+                    list_for_parallel.add(d);
+                    try{
+                        Data respData = new Data();
+                        for(int i=0; i < list_for_parallel.size(); i++){
+                            respData = getHttpResponse.getResponseNullPlate(list_for_parallel).get(i);
+                        }
+
+                        ındexRepository.updateTCNullPlate(respData.getTckn(), respData.getUnvan(), respData.getVdkodu(),
+                                respData.getVkn(), respData.getDurum_text(), respData.getPlaka(), respData.getOid());
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void updateVknNullPlate(String sql) {
+        try{
+
+            List<Data> newList = getSqlQuery(sql);
+            GetHttpResponse getHttpResponse = new GetHttpResponse();
+
+            newList.parallelStream().forEach( d ->{
+                try {
+                    List<Data> list_for_parallel = new ArrayList<>();
+                    list_for_parallel.add(d);
+                    try{
+                        Data respData = new Data();
+                        for(int i=0; i < list_for_parallel.size(); i++){
+                            respData = getHttpResponse.getResponseVknNullPlate(list_for_parallel).get(i);
+                        }
+
+                        ındexRepository.updateVknNonePLate(respData.getVd_vkn(),respData.getVd_unvan_donen(),
+                                respData.getVd_vdkodu(), respData.getVd_tc_donen(),
+                                respData.getVd_fiili_durum_donen(), respData.getPlaka(),respData.getOid());
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void updateVknTable(String sql) {
         try{
 
@@ -75,7 +145,7 @@ public class DataRepositoryImp {
                     }
 
                 } catch (Exception e) {
-                e.printStackTrace();
+                    e.printStackTrace();
                 }
             });
 
@@ -95,12 +165,7 @@ public class DataRepositoryImp {
                 try {
                     List<Data> list_for_parallel = new ArrayList<>();
                     list_for_parallel.add(d);
-                    /*if(d.getTckn() != null){
-                        list_for_parallel.add(d);
-                    }*/
-                    //List<Data> myDatas = getHttpResponse.getResponseVkn(list_for_parallel);
                     try{
-                        //myResultList.addAll(getHttpResponse.getResponse(list_for_parallel));
                         Data respData = new Data();
                         for(int i=0; i < list_for_parallel.size(); i++){
                             respData = getHttpResponse.getResponse(list_for_parallel).get(i);

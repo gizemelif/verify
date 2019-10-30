@@ -40,31 +40,8 @@ public class DataController {
     //Bu servis gelen SQL string leri alır ve Queue tablosuna set eder.
     @GetMapping("/datas")
     @ResponseBody
-    public void all(@RequestParam String sql, @RequestParam String queryType) {
-        service.setQueueRepo(sql, queryType);
+    public void all(@RequestParam String sql, @RequestParam String queryType, @RequestParam String isPlate) {
+        service.setQueueRepo(sql, queryType, isPlate);
 
     }
-
-/*
-    @RequestMapping( value = "/orders", method = RequestMethod.POST, produces = "application/json; charset=UTF-8" )
-    public ResponseEntity<List<Queue>> update(@RequestBody List<Queue> queues){
-        queues.stream().forEach(q -> q.setSql_string(q.getSql_string()));
-        ResponseEntity<List<Queue>> listResponseEntity = new ResponseEntity<List<Queue>>(queues, HttpStatus.OK);
-
-        List<Queue> newList = listResponseEntity.getBody();
-
-        for(Queue q: newList){
-            String state = q.getState().toString();
-            String notification_mail = q.getNotification_mail().toString();
-            String sql_string = q.getSql_string().toString();
-            String query_type = q.getQueryType().toString();
-
-            //service.setQueueRepo(sql_string,query_type);
-            System.out.println("--->>>"+q.getState().toString());
-        }
-
-
-        return listResponseEntity;
-    }
-*/
 }
