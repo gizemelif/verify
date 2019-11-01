@@ -32,6 +32,9 @@ public class DataController {
     private IndexRepository dataRepository;
 
     @Autowired
+    private Queue queue;
+
+    @Autowired
     private QueueRepo queueRepo;
 
     @Autowired
@@ -40,8 +43,8 @@ public class DataController {
     //Bu servis gelen SQL string leri alır ve Queue tablosuna set eder.
     @GetMapping("/datas")
     @ResponseBody
-    public void all(@RequestParam String sql, @RequestParam String queryType, @RequestParam String isPlate) {
-        service.setQueueRepo(sql, queryType, isPlate);
+    public void all( @RequestParam String sql, @RequestParam String queryType ) {
 
+        service.setQueueRepo(sql, queryType);
     }
 }

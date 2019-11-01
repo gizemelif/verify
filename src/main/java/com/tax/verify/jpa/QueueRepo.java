@@ -13,6 +13,9 @@ import java.util.Date;
 @Repository
 @org.springframework.transaction.annotation.Transactional(propagation = Propagation.REQUIRES_NEW)
 public interface QueueRepo extends JpaRepository< Queue, String > {
+    /*@Query(value = "SELECT * FROM SCHEDULED_VD_TC_INDEX u WHERE u.state = 'PROCESSING' ORDER BY u.created_at ASC LIMIT 1", nativeQuery = true)
+    Queue findProcessing();*/
+
     @Query(value = "SELECT * FROM SCHEDULED_VD_TC_INDEX u WHERE u.state = 'WAITING' ORDER BY u.created_at ASC LIMIT 1", nativeQuery = true)
     Queue findByState();
 

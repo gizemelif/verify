@@ -10,7 +10,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.*;
@@ -48,7 +47,7 @@ public class DataRepositoryImp {
         s.addEntity(Data.class);
         return s.list();
     }
-
+/*
     public void updateTCNullPlate(String sql) {
         try{
 
@@ -65,7 +64,7 @@ public class DataRepositoryImp {
                             respData = getHttpResponse.getResponseNullPlate(list_for_parallel).get(i);
                         }
 
-                        ındexRepository.updateTCNullPlate(respData.getTckn(), respData.getUnvan(), respData.getVdkodu(),
+                        ındexRepository.updateTCNonePlate(respData.getTckn(), respData.getUnvan(), respData.getVdkodu(),
                                 respData.getVkn(), respData.getDurum_text(), respData.getPlaka(), respData.getOid());
                     }
                     catch (Exception e)
@@ -97,9 +96,9 @@ public class DataRepositoryImp {
                         Data respData = new Data();
                         for(int i=0; i < list_for_parallel.size(); i++){
                             respData = getHttpResponse.getResponseVknNullPlate(list_for_parallel).get(i);
-                        }
 
-                        ındexRepository.updateVknNonePLate(respData.getVd_vkn(),respData.getVd_unvan_donen(),
+                        }
+                        ındexRepository.updateVknNonePlate(respData.getVd_vkn(),respData.getVd_unvan_donen(),
                                 respData.getVd_vdkodu(), respData.getVd_tc_donen(),
                                 respData.getVd_fiili_durum_donen(), respData.getPlaka(),respData.getOid());
                     }
@@ -118,7 +117,7 @@ public class DataRepositoryImp {
             e.printStackTrace();
         }
     }
-
+*/
     public void updateVknTable(String sql) {
         try{
 
@@ -137,7 +136,7 @@ public class DataRepositoryImp {
 
                         ındexRepository.updateVkn(respData.getVd_vkn(),respData.getVd_unvan_donen(),
                                 respData.getVd_vdkodu(), respData.getVd_tc_donen(),
-                                respData.getVd_fiili_durum_donen(),respData.getOid());
+                                respData.getVd_fiili_durum_donen(), respData.getPlaka(),respData.getOid());
                     }
                     catch (Exception e)
                     {
@@ -171,7 +170,7 @@ public class DataRepositoryImp {
                             respData = getHttpResponse.getResponse(list_for_parallel).get(i);
                         }
                         ındexRepository.update(respData.getTckn(),respData.getUnvan(),respData.getVdkodu(),
-                                respData.getVkn(),respData.getDurum_text(),respData.getOid());
+                                respData.getVkn(),respData.getDurum_text(), respData.getPlaka(),respData.getOid());
 
                     }
                     catch (Exception e)
