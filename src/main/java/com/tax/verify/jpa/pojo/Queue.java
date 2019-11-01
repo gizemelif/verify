@@ -29,9 +29,6 @@ public class Queue {
     @Column(name = "QUERY_TYPE")
     private String queryType;
 
-    @Column( name = "is_plate")
-    private String isPlate;
-
     @Id @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name = "JOB_OID")
@@ -98,13 +95,6 @@ public class Queue {
         this.job_oid = job_oid;
     }
 
-    public String getIsPlate() {
-        return isPlate;
-    }
-
-    public void setIsPlate(String isPlate) {
-        this.isPlate = isPlate;
-    }
     public String getQueryType() {
         return queryType;
     }
