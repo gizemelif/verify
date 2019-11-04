@@ -25,12 +25,7 @@ public class Scheduler {
 
         return queueRepo.findByState();
     }
-/*
-    public Queue findProcessing() {
 
-        return queueRepo.findProcessing();
-    }
-*/
     @Scheduled(fixedDelay = 20000)
     public void checkTheSchedule() {
         queue = findByState();

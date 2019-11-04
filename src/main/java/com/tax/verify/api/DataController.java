@@ -41,6 +41,9 @@ public class DataController {
     QueueService service;
 
     //Bu servis gelen SQL string leri alır ve Queue tablosuna set eder.
+    //Queue'ya üzerinden 1 aydan fazla zaman geçmiş vd ve tc lerin yeniden sorulması için gerekli olan sorgu da kaydedildi.
+    //Bir kereliğine tabloya eklendi ve her gece çalıştırılması için zamanlandı.
+    
     @GetMapping("/datas")
     @ResponseBody
     public void all( @RequestParam String sql, @RequestParam String queryType ) {
