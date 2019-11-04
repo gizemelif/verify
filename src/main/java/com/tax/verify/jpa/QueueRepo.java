@@ -21,6 +21,6 @@ public interface QueueRepo extends JpaRepository< Queue, String > {
     @Query("UPDATE Queue q SET q.state =:state, q.notification_mail =:notification_mail, q.end_date =:end_date where q.job_oid =:job_oid")
     void updateStateProcessed(@Param("state")Queue.QueueState state, @Param("notification_mail") String notification_mail,@Param("end_date") Date end_date,@Param("job_oid") String job_oid);
 
-    @Query(value = "SELECT * FROM SCHEDULED_VD_TC_INDEX u WHERE u.state = 'WAITING' OR u.state = 'PROCESSING' ORDER BY u.created_at ASC LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM SCHEDULED_VD_TC_INDEX u WHERE u.state = 'WAITING' ORDER BY u.created_at ASC LIMIT 1", nativeQuery = true)
     Queue findByState();
 }
