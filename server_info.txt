@@ -1,0 +1,2 @@
+192.168.1.153 -->> canlý db verify -- pid = 30617
+192.168.1.159 -->> test db verify
