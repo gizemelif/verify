@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
-
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.*;
@@ -41,13 +40,13 @@ public class DataRepositoryImp {
     Queue queue;
 
    public List<Data> getSqlQuery(String sql) {
-
         Session session = em.unwrap(Session.class);
         SQLQuery s = session.createSQLQuery(sql);
         s.addEntity(Data.class);
         return s.list();
     }
 /*
+-->Eğer plakanın boş olup olmadığını servis ile parametre olarak almak gerekirse update metotları;
     public void updateTCNullPlate(String sql) {
         try{
 

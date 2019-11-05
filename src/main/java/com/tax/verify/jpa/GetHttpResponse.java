@@ -10,14 +10,11 @@ import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.springframework.stereotype.Service;
-import sun.security.krb5.internal.crypto.Des;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
-
 import static com.tax.verify.mailSender.EmailSender.gmail_config;
 
 @Service
@@ -105,14 +102,6 @@ public class GetHttpResponse {
                 mailer.sendEmail("gizemelif.atalay@gvg.com.tr", "HTTP Response hatası", e.toString());
 
                 System.out.println(e.toString());
-                /*if( myData.getTckn().length() == 0 || myData.getTckn().length() < 11 ){
-
-                    continue;}
-                else {
-                    mailer.sendEmail("gizemelif.atalay@gvg.com.tr", "HTTP Response hatası", e.toString());
-
-                    continue;
-                }*/
             }
 
             myDatas.add(myData);
@@ -181,7 +170,6 @@ public class GetHttpResponse {
 
                 vd.getData().setOid(newList.get(i).getOid());
                 vd.getData().setPlaka(newList.get(i).getPlaka());
-                //myData.setTckn(newList.get(i).getTckn());
                 vd.getData().setVd_tc_donen(vd.getData().getTckn());
                 vd.getData().setVd_vkn(newList.get(i).getVd_vkn().trim());
                 vd.getData().setVd_fiili_durum_donen(vd.getData().getDurum_text());
@@ -189,19 +177,11 @@ public class GetHttpResponse {
                 vd.getData().setVd_vdkodu(newList.get(i).getVd_vdkodu());
 
                 myData = vd.getData();
-                //System.out.println(responseString);
 
             }catch (Exception e){
                 e.printStackTrace();
                 System.out.println(e.toString());
                 mailer.sendEmail("gizemelif.atalay@gvg.com.tr", "HTTP Response hatası", e.toString());
-                /*if( myData.getVd_vkn().length() == 0 || myData.getVd_vkn().length() < 10 ){
-                    continue;}
-                else {
-                    mailer.sendEmail("gizemelif.atalay@gvg.com.tr", "HTTP Response hatası", e.toString());
-
-                    continue;
-                }*/
             }
             myDatas.add(myData);
         }
@@ -259,7 +239,6 @@ public class GetHttpResponse {
 
                     vd.getData().setOid(newList.get(i).getOid());
                     vd.getData().setPlaka(newList.get(i).getPlaka());
-                    //myData.setTckn(newList.get(i).getTckn());
                     vd.getData().setVd_tc_donen(vd.getData().getTckn());
                     vd.getData().setVd_vkn(newList.get(i).getVd_vkn().trim());
                     vd.getData().setVd_fiili_durum_donen(vd.getData().getDurum_text());
@@ -274,13 +253,6 @@ public class GetHttpResponse {
                 e.printStackTrace();
                 System.out.println(e.toString());
                 mailer.sendEmail("gizemelif.atalay@gvg.com.tr", "HTTP Response hatası", e.toString());
-                /*if( myData.getVd_vkn().length() == 0 || myData.getVd_vkn().length() < 10 ){
-                    continue;}
-                else {
-                    mailer.sendEmail("gizemelif.atalay@gvg.com.tr", "HTTP Response hatası", e.toString());
-
-                    continue;
-                }*/
             }
             myDatas.add(myData);
         }
@@ -345,14 +317,7 @@ public class GetHttpResponse {
                 mailer.sendEmail("gizemelif.atalay@gvg.com.tr", "HTTP Response hatası", e.toString());
 
                 System.out.println(e.toString());
-                /*if( myData.getTckn().length() == 0 || myData.getTckn().length() < 11 ){
 
-                    continue;}
-                else {
-                    mailer.sendEmail("gizemelif.atalay@gvg.com.tr", "HTTP Response hatası", e.toString());
-
-                    continue;
-                }*/
             }
 
             myDatas.add(myData);
